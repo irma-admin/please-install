@@ -85,5 +85,5 @@ make -j || exit 1
 make -j install || exit 1
 
 cd $SCRIPT_DIR
-make -p ${MODULE_DIR}
+mkdir -p ${MODULE_DIR}
 envtpl < module.tmpl > $MODULE_PATH
