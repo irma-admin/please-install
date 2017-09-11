@@ -5,7 +5,7 @@ LIB_NAME="hdf5"
 LIB_VERSION=1.10.1
 GCC_VERSION=6.4.0
 MPI_LIB=openmpi
-MPI_VERSION=2.1.1
+MPI_VERSION=1.10.7
 
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 GCC_FULL=gcc-$GCC_VERSION
@@ -23,6 +23,8 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MODULE_DIR=/data/software/modules/libs/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 
+install_lib ()
+{
 module purge
 module load gcc/${GCC_VERSION}
 module load ${MPI_LIB}/${MPI_VERSION}_${GCC_SHORT}
@@ -57,7 +59,10 @@ fi
 cd $BUILD_DIR
 make -j || exit 1
 make -j install || exit 1
+}
 
+install_module ()
+{
 cd $SCRIPT_DIR
 mkdir -p ${MODULE_DIR}
 
@@ -65,3 +70,13 @@ export LIB_NAME
 export LIB_VERSION
 export INSTALL_DIR
 envtpl  --keep-template -o $MODULE_PATH module.tmpl
+}
+
+if [[ $1 == "module" ]]
+then
+  install_module
+else
+  install_lib
+  install_module
+fi
+

@@ -2,7 +2,8 @@
 
 set -x 
 LIB_NAME="openmpi"
-LIB_VERSION=2.1.1
+LIB_MAJOR_VERSION=1.10
+LIB_VERSION=${LIB_MAJOR_VERSION}.7
 GCC_VERSION=6.4.0
 
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
@@ -11,7 +12,7 @@ SUB_DIR=${LIB_NAME}/${LIB_VERSION}/gcc-${GCC_VERSION}
 WORK_DIR=/data/software/sources/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
-URL="https://www.open-mpi.org/software/ompi/v2.1/downloads/${LIB_NAME}-${LIB_VERSION}.tar.gz"
+URL="https://www.open-mpi.org/software/ompi/v${LIB_MAJOR_VERSION}/downloads/${LIB_NAME}-${LIB_VERSION}.tar.gz"
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
 INSTALL_DIR=/data/software/install/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -21,32 +22,46 @@ MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_gcc${GCC_VERSION_SHORT}
 module purge
 module load gcc/${GCC_VERSION}
 
-gcc --version
+gcc --version | head -n 1
 
-if [[ ! -f $ARCHIVE ]]; then
-  mkdir -p $WORK_DIR
-  wget $URL -O $ARCHIVE
-fi
-
-if [[ ! -d $SRC_DIR ]]; then
-  tar zxf $ARCHIVE --directory $WORK_DIR
-fi
-
-if [[ ! -d $BUILD_DIR ]]; then
-  mkdir $BUILD_DIR
+install_lib ()
+{
+  if [[ ! -f $ARCHIVE ]]; then
+    mkdir -p $WORK_DIR
+    wget $URL -O $ARCHIVE
+  fi
+  
+  if [[ ! -d $SRC_DIR ]]; then
+    tar zxf $ARCHIVE --directory $WORK_DIR
+  fi
+  
+  if [[ ! -d $BUILD_DIR ]]; then
+    mkdir $BUILD_DIR
+    cd $BUILD_DIR
+    ${SRC_DIR}/configure \
+    --prefix=${INSTALL_DIR}
+  fi
+  
   cd $BUILD_DIR
-  ${SRC_DIR}/configure \
-  --prefix=${INSTALL_DIR}
+  make -j || exit 1
+  make -j install || exit 1
+}
+
+install_module ()
+{
+  cd $SCRIPT_DIR
+  mkdir -p ${MODULE_DIR}
+  
+  export LIB_NAME
+  export LIB_VERSION
+  export INSTALL_DIR
+  envtpl  --keep-template -o $MODULE_PATH module.tmpl
+}
+
+if [[ $1 == "module" ]]
+then
+  install_module
+else
+  install_lib
+  install_module
 fi
-
-cd $BUILD_DIR
-make -j || exit 1
-make -j install || exit 1
-
-cd $SCRIPT_DIR
-mkdir -p ${MODULE_DIR}
-
-export LIB_NAME
-export LIB_VERSION
-export INSTALL_DIR
-envtpl  --keep-template -o $MODULE_PATH module.tmpl
