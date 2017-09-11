@@ -24,7 +24,7 @@ module load gcc/${GCC_VERSION}
 
 gcc --version | head -n 1
 
-install_lib ()
+install_lib()
 {
   if [[ ! -f $ARCHIVE ]]; then
     mkdir -p $WORK_DIR
@@ -47,7 +47,7 @@ install_lib ()
   make -j install || exit 1
 }
 
-install_module ()
+install_module()
 {
   cd $SCRIPT_DIR
   mkdir -p ${MODULE_DIR}

@@ -24,7 +24,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MODULE_DIR=/data/software/modules/libs/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 
-install_lib ()
+install_lib()
 {
 module purge
 module load gcc/${GCC_VERSION}
@@ -58,7 +58,7 @@ make -j || exit 1
 make -j install || exit 1
 }
 
-install_module ()
+install_module()
 {
 cd $SCRIPT_DIR
 mkdir -p ${MODULE_DIR}
