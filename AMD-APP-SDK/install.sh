@@ -20,8 +20,7 @@ if [[ -d $SRC_DIR ]]; then
   if [[ ! -f $INSTALL_SCRIPT ]]; then
     tar xvjf $TARBALL || exit 1
   fi
-  ./$INSTALL_SCRIPT --nox11 --target $TARGET_DIR
-  echo $INSTALL_DIR/lib/x86_64/sdk/libamdocl64.so | tee  $INSTALL_DIR/etc/OpenCL/vendors/amd64.icd
+  ./$INSTALL_SCRIPT --nox11
 else
   echo "Source dir $SRC_DIR does not exist."
   exit 1
