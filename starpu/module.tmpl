@@ -1,0 +1,33 @@
+#%Module1.0################
+## 
+## {{ LIB_NAME }} (svn r{{ LIB_VERSION }}) module
+#
+#
+
+proc ModulesHelp { } {
+    global prefix
+
+    puts stderr "\tlibs/{{ LIB_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_NAME }} (svn r{{ LIB_VERSION }}) module"
+}
+
+module-whatis   "Loads {{ LIB_NAME }} (svn r{{ LIB_VERSION }}) and its environment"
+
+# for Tcl script use only
+set prefix {{ INSTALL_DIR }}
+
+set libpath $prefix/lib
+set binpath $prefix/bin
+set includepath $prefix/include
+set pkgconfigpath $prefix/lib/pkgconfig
+
+if [module-info mode load]  {
+	prepend-path PATH $binpath
+	prepend-path LD_LIBRARY_PATH $libpath
+    prepend-path PKG_CONFIG_PATH $pkgconfigpath
+}
+
+if [module-info mode remove] {
+	remove-path PATH $binpath
+	remove-path LD_LIBRARY_PATH $libpath
+    remove-path PKG_CONFIG_PATH $pkgconfigpath
+}
