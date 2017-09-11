@@ -1,0 +1,24 @@
+#%Module1.0################
+## 
+## AMD APP SDK module
+##
+#
+#
+
+set amdappsdk {{ INSTALL_DIR }}
+
+if [module-info mode load]  {
+    setenv AMDAPPSDKROOT $amdappsdk
+    prepend-path LD_LIBRARY_PATH $amdappsdk/lib/x86_64/sdk
+    prepend-path LIBRARY_PATH $amdappsdk/lib/x86_64/sdk
+    prepend-path PATH $amdappsdk/bin/x86_64
+    setenv OPENCL_VENDOR_PATH $amdappsdk/etc/OpenCL/vendors
+}
+
+if [module-info mode remove] {
+    unsetenv AMDAPPSDKROOT $amdappsdk
+    remove-path LD_LIBRARY_PATH $amdappsdk/lib/x86_64/sdk
+    remove-path LIBRARY_PATH $amdappsdk/lib/x86_64/sdk
+    remove-path PATH $amdappsdk/bin/x86_64
+    unsetenv OPENCL_VENDOR_PATH $amdappsdk/etc/OpenCL/vendors
+}
