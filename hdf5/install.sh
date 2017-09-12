@@ -5,7 +5,7 @@ LIB_NAME="hdf5"
 LIB_VERSION=1.10.1
 GCC_VERSION=6.4.0
 MPI_LIB=openmpi
-MPI_VERSION=1.10.7
+MPI_VERSION=2.1.1
 
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 GCC_FULL=gcc-$GCC_VERSION
@@ -50,9 +50,9 @@ if [[ ! -d $BUILD_DIR ]]; then
   ${SRC_DIR}/configure \
   --enable-parallel \
   --enable-fortran \
-  --enable-fortran2003
+  --enable-fortran2003 \
   --enable-build-all \
-  --enable-production \
+  --enable-build-mode=production \
   --prefix=${INSTALL_DIR} || exit 1
 fi
 
