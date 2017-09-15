@@ -20,7 +20,11 @@ if [[ -d $SRC_DIR ]]; then
   if [[ ! -f $INSTALL_SCRIPT ]]; then
     tar xvjf $TARBALL || exit 1
   fi
-  ./$INSTALL_SCRIPT --nox11
+  echo "y" > script.input
+  echo "y" >> script.input
+  echo $INSTALL_DIR >> script.input
+  ./$INSTALL_SCRIPT --nox11 < script.input
+  ln -s /etc/OpenCL/vendors/nvidia.icd /data/software/install/AMD-APP-SDK/3.0.130.136/AMDAPPSDK-3.0/etc/OpenCL/vendors/nvidia.icd
 else
   echo "Source dir $SRC_DIR does not exist."
   exit 1
