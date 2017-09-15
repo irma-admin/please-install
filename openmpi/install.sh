@@ -39,6 +39,7 @@ install_lib()
     mkdir $BUILD_DIR
     cd $BUILD_DIR
     ${SRC_DIR}/configure \
+    --enable-mpi-thread-multiple \
     --prefix=${INSTALL_DIR}
   fi
   
@@ -61,6 +62,15 @@ install_module()
 if [[ $1 == "module" ]]
 then
   install_module
+elif [[ $1 == "clean" ]]
+then
+  if [[ -d $BUILD_DIR ]]
+  then
+    rm -rf $BUILD_DIR
+  else
+    echo "$BUILD_DIR does not exist"
+    exit 1
+  fi
 else
   install_lib
   install_module
