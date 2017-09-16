@@ -35,7 +35,7 @@ fi
 if [[ ! -d $BUILD_DIR ]]; then
   mkdir $BUILD_DIR
   cd $BUILD_DIR
-  ${SRC_DIR}/configure -v --with-pkgversion='Ubuntu 6.4.0' \
+  ${SRC_DIR}/configure -v --with-pkgversion='gcc 6.4.0' \
   --with-bugurl=file:///usr/share/doc/gcc-6/README.Bugs \
   --enable-languages=c,c++,fortran \
   --enable-shared \
