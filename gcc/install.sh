@@ -6,7 +6,7 @@ export LIB_VERSION=6.4.0
 
 export LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 #export LIB_VERSION_SHORT="${LIB_VERSION//.}"
-export SUB_DIR=${LIB_NAME}/${LIB_VERSION}
+SUB_DIR=${LIB_NAME}/${LIB_VERSION}
 WORK_DIR=/data/software/sources/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
@@ -17,7 +17,11 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MODULE_DIR=/data/software/modules/compilers/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}
 
+install_lib()
+{
+module purge
 gcc --version
+sleep 1
 
 if [[ ! -f $ARCHIVE ]]; then
   mkdir -p $WORK_DIR
@@ -83,7 +87,33 @@ fi
 cd $BUILD_DIR
 make -j || exit 1
 make -j install || exit 1
+}
 
+install_module()
+{
 cd $SCRIPT_DIR
 mkdir -p ${MODULE_DIR}
-envtpl < module.tmpl > $MODULE_PATH
+export LIB_NAME
+export LIB_VERSION
+export LIB_FULLNAME
+export INSTALL_DIR
+envtpl  --keep-template -o $MODULE_PATH module.tmpl
+}
+
+if [[ $1 == "module" ]]
+then
+  install_module
+elif [[ $1 == "clean" ]]
+then
+  if [[ -d $BUILD_DIR ]]
+  then
+    rm -rf $BUILD_DIR
+  else
+    echo "$BUILD_DIR does not exist"
+    exit 1
+  fi
+else
+  install_lib
+  install_module
+fi
+
