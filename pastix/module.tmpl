@@ -1,0 +1,22 @@
+#%Module1.0#####################################################################
+###
+### {{ LIB_NAME }} {{ LIB_VERSION }}  module
+###
+proc ModulesHelp { } {
+    global version prefix
+
+    puts stderr "\tlibs/{{ LIB_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+}
+
+module-whatis   "Loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+
+prereq gcc/{{ GCC_VERSION }}
+prereq openmpi/{{ MPI_VERSION }}_{{ GCC_SHORT }}
+
+# for Tcl script use only
+set prefix      {{ INSTALL_DIR }}
+
+prepend-path PATH $prefix/bin
+prepend-path LIBRARY_PATH $prefix/lib
+prepend-path PKG_CONFIG_PATH $prefix/lib/pkgconfig
+
