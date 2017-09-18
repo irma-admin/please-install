@@ -106,10 +106,10 @@ CCTYPESFLT := $(CCTYPESFLT) -DFORCE_DOUBLE -DPREC_DOUBLE
 
 # Uncomment the following line if your MPI doesn't support MPI_THREAD_MULTIPLE level,
 #  then use IPARM_THREAD_COMM_MODE
-#CCPASTIX   := $(CCPASTIX) -DPASTIX_FUNNELED
+CCPASTIX   := $(CCPASTIX) -DPASTIX_FUNNELED
 
 # Uncomment the following line if your MPI doesn't support MPI_Datatype correctly
-CCPASTIX   := $(CCPASTIX) -DNO_MPI_TYPE
+#CCPASTIX   := $(CCPASTIX) -DNO_MPI_TYPE
 
 # Uncomment the following line if you want to use semaphore barrier
 # instead of MPI barrier (with IPARM_AUTOSPLIT_COMM)
