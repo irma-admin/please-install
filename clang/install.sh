@@ -1,8 +1,8 @@
 #!/bin/bash
 
 set -x 
-LIB_NAME="clang"
-LIB_VERSION=4.0.1
+LIB_NAME="llvm"
+LIB_VERSION=5.0.0 #4.0.1
 GCC_VERSION=6.4.0
 
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
@@ -13,14 +13,18 @@ WORK_DIR=/data/software/sources/${SUB_DIR}
 
 URL_LLVM="http://releases.llvm.org/${LIB_VERSION}/llvm-${LIB_VERSION}.src.tar.xz"
 URL_CFE="http://releases.llvm.org/${LIB_VERSION}/cfe-${LIB_VERSION}.src.tar.xz"
+URL_LLD="http://releases.llvm.org/${LIB_VERSION}/lld-${LIB_VERSION}.src.tar.xz"
+URL_LLDB="http://releases.llvm.org/${LIB_VERSION}/lldb-${LIB_VERSION}.src.tar.xz"
 URL_CLANG_TOOLS="http://releases.llvm.org/${LIB_VERSION}/clang-tools-extra-${LIB_VERSION}.src.tar.xz"
 URL_COMPILER_RT="http://releases.llvm.org/${LIB_VERSION}/compiler-rt-${LIB_VERSION}.src.tar.xz"
+URL_OPENMP="http://releases.llvm.org/${LIB_VERSION}/openmp-${LIB_VERSION}.src.tar.xz"
 
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
 INSTALL_DIR=/data/software/install/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MODULE_DIR=/data/software/modules/compilers/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}
+MODULE_CLANG_PATH=/data/software/modules/compilers/clang/${LIB_VERSION}_${GCC_SHORT}
 
 
 install_lib()
@@ -38,16 +42,25 @@ install_lib()
 	cd $WORK_DIR
 	wget ${URL_LLVM}
 	wget ${URL_CFE}
+	wget ${URL_LLD}
+	wget ${URL_LLDB}
 	wget ${URL_CLANG_TOOLS}
 	wget ${URL_COMPILER_RT}
+	wget ${URL_OPENMP}
 	tar -xJf ${WORK_DIR}/llvm-${LIB_VERSION}.src.tar.xz
 	tar -xJf ${WORK_DIR}/cfe-${LIB_VERSION}.src.tar.xz
+	tar -xJf ${WORK_DIR}/lld-${LIB_VERSION}.src.tar.xz
+	tar -xJf ${WORK_DIR}/lldb-${LIB_VERSION}.src.tar.xz
 	tar -xJf ${WORK_DIR}/clang-tools-extra-${LIB_VERSION}.src.tar.xz
 	tar -xJf ${WORK_DIR}/compiler-rt-${LIB_VERSION}.src.tar.xz
+	tar -xJf ${WORK_DIR}/openmp-${LIB_VERSION}.src.tar.xz
 	mv ${WORK_DIR}/llvm-${LIB_VERSION}.src ${WORK_DIR}/llvm
 	mv ${WORK_DIR}/cfe-${LIB_VERSION}.src ${WORK_DIR}/llvm/tools/clang
+	mv ${WORK_DIR}/lld-${LIB_VERSION}.src ${WORK_DIR}/llvm/tools/lld
+	mv ${WORK_DIR}/lldb-${LIB_VERSION}.src ${WORK_DIR}/llvm/tools/lldb
 	mv ${WORK_DIR}/clang-tools-extra-${LIB_VERSION}.src llvm/tools/clang/tools/extra
 	mv ${WORK_DIR}/compiler-rt-${LIB_VERSION}.src llvm/projects/compiler-rt
+	mv ${WORK_DIR}/openmp-${LIB_VERSION}.src llvm/projects/openmp
     fi
 
     if [[ ! -d $BUILD_DIR ]]; then
@@ -78,6 +91,8 @@ install_module()
     export LIB_VERSION
     export INSTALL_DIR
     envtpl  --keep-template -o $MODULE_PATH module.tmpl
+    export GCC_SHORT
+    envtpl  --keep-template -o $MODULE_CLANG_PATH module_clang.tmpl
 }
 
 if [[ $1 == "module" ]]
