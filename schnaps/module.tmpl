@@ -1,0 +1,26 @@
+#%Module1.0################
+##
+## {{ LIB_NAME }}
+
+proc ModulesHelp { } {
+
+    puts stderr "Load all necessary modules for compiling schnaps code\n\
+using libraries based on gcc/{{ GCC_VERSION }} and {{ MPI_LIB }}/{{ MPI_VERSION }}_{{ GCC_SHORT }}"
+}
+
+
+if [module-info mode load]  {
+    module load gcc/{{ GCC_VERSION }}
+    module load {{ MPI_LIB }}/{{ MPI_VERSION }}_{{ GCC_SHORT }}
+    module load AMD-APP-SDK/3.0.130.136
+    module load starpu/21055_{{ GCC_SHORT }}_{{ MPI_SHORT }}
+    module load hdf5/1.10.1_{{ GCC_SHORT }}_{{ MPI_SHORT }}
+}
+
+if [module-info mode remove] {
+    module unload gcc/{{ GCC_VERSION }}
+    module unload {{ MPI_LIB }}/{{ MPI_VERSION }}_{{ GCC_SHORT }}
+    module unload AMD-APP-SDK/3.0.130.136
+    module unload starpu/21055_{{ GCC_SHORT }}_{{ MPI_SHORT }}
+    module unload hdf5/1.10.1_{{ GCC_SHORT }}_{{ MPI_SHORT }}
+}
