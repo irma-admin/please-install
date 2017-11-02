@@ -1,17 +1,17 @@
 #%Module1.0#####################################################################
 ###
-### {{ LIB_NAME }} {{ LIB_VERSION }}  module
+### {{ LIB_NAME }} {{ LIB_VERSION }} module
 ###
 proc ModulesHelp { } {
     global version prefix
 
-    puts stderr "\ttools/{{ LIB_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+    puts stderr "\ttools/{{ LIB_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
 }
 
-module-whatis   "Loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+module-whatis   "Loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
 
 if [module-info mode load]  {
-  module load gcc/{{ GCC_VERSION }}
+  module load gcc/{{ GCC_VERSION }}
   module load {{ MPI_LIB }}/{{ MPI_VERSION }}_{{ GCC_SHORT }}
   module load hdf5/{{ HDF5_VERSION }}_{{ GCC_SHORT }}_{{ MPI_SHORT }}
 
@@ -22,10 +22,11 @@ prereq openmpi/{{ MPI_VERSION }}_{{ GCC_SHORT }}
 prereq hdf5/{{ HDF5_VERSION }}_{{ GCC_SHORT }}_{{ MPI_SHORT }}
 
 # for Tcl script use only
-set prefix      {{ INSTALL_DIR }}
+set prefix      {{ INSTALL_DIR }}
 
 prepend-path CMAKE_PREFIX_PATH $prefix
 prepend-path PATH $prefix/bin
 prepend-path LD_LIBRARY_PATH $prefix/lib
-prepend-path LD_LIBRARY_PATH $prefix/lib/paraview-{{ LIB_VERSION_SHORT }}
-prepend-path PYTHONPATH $prefix/lib/paraview-{{ LIB_VERSION_SHORT }}/site-packages
+prepend-path LD_LIBRARY_PATH $prefix/lib/paraview-{{ LIB_VERSION_SHORT }}
+prepend-path PYTHONPATH $prefix/lib/paraview-{{ LIB_VERSION_SHORT }}/site-packages
+prepend-path PYTHONPATH $prefix/lib/paraview-{{ LIB_VERSION_SHORT }}/site-packages/vtk
