@@ -2,7 +2,8 @@
 
 set -x 
 LIB_NAME="paraview"
-LIB_VERSION=5.4.1
+LIB_VERSION_URL=5.4.1
+LIB_VERSION=${LIB_VERSION_URL}-py3
 GCC_VERSION=6.4.0
 MPI_LIB=openmpi
 MPI_VERSION=1.10.7
@@ -19,12 +20,13 @@ SUB_DIR=${LIB_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
 WORK_DIR=/data/software/sources/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
-URL="https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${LIB_VERSION_SHORT}&type=binary&os=Sources&downloadFile=ParaView-v${LIB_VERSION}.tar.gz"
+URL="https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${LIB_VERSION_SHORT}&type=binary&os=Sources&downloadFile=ParaView-v${LIB_VERSION_URL}.tar.gz"
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
 INSTALL_DIR=/data/software/install/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MODULE_DIR=/data/software/modules/tools/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
+
 
 install_lib()
 {
@@ -40,7 +42,7 @@ sleep 2
 
 if [[ ! -f $ARCHIVE ]]; then
   mkdir -p $WORK_DIR
-  wget $URL -O $ARCHIVE
+  wget $URL -O $ARCHIVE || exit 1
 fi
 
 if [[ ! -d $SRC_DIR ]]; then
@@ -59,6 +61,9 @@ if [[ ! -d $BUILD_DIR ]]; then
   -DVTK_RENDERING_BACKEND=OpenGL2 \
   -DPARAVIEW_ENABLE_CATALYST=ON \
   -DPARAVIEW_ENABLE_PYTHON=ON \
+  -DPYTHON_LIBRARY="/usr/lib/x86_64-linux-gnu/libpython3.5m.so" \
+  -DPYTHON_INCLUDE_DIR="/usr/include/python3.5" \
+  -DPYTHON_EXECUTABLE="/usr/bin/python3" \
   -DPARAVIEW_INSTALL_DEVELOPMENT_FILES=ON \
   -DPARAVIEW_USE_MPI=ON \
   -DPARAVIEW_QT_VERSION=4 \
