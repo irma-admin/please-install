@@ -14,11 +14,6 @@ LIB_NAME="sympy"
 LIB_VERSION=1.1.1
 PYTHON_VERSION=3.0.0
 
-# Use cern repository! (patched version)
-LLVM_REPOSITORY=http://root.cern.ch/git/llvm.git
-CLING_REPOSITORY=http://root.cern.ch/git/cling.git
-CLANG_REPOSITORY=http://root.cern.ch/git/clang.git
-
 LIB_VERSION_MAJOR=`echo "${LIB_VERSION}" | sed 's/\([0-9]\)[.][0-9][.][0-9]/\1/g'`
 LIB_VERSION_MINOR=`echo "${LIB_VERSION}" | sed 's/[0-9][.]\([0-9]\)[.][0-9]/\1/g'`
 LIB_VERSION_PATCH=`echo "${LIB_VERSION}" | sed 's/[0-9][.][0-9][.]\([0-9]\)/\1/g'`

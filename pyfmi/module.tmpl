@@ -1,0 +1,26 @@
+#%Module1.0#####################################################################
+###
+### {{ LIB_NAME }} {{ LIB_VERSION }} module
+###
+proc ModulesHelp { } {
+    global version prefix
+
+    puts stderr "\tlibs/{{ LIB_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+}
+
+module-whatis   "Loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+
+# for Tcl script use only
+set version     {{ LIB_VERSION }}
+set prefix      {{ INSTALL_DIR }}
+
+if [module-info mode load]  {
+    prepend-path PYTHONPATH $prefix
+    ## Required to find openmodelica libs
+    prepend-path LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/omc/
+}
+
+if [module-info mode remove] {
+    remove-path PYTHONPATH $prefix
+    remove-path LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/omc/
+}
