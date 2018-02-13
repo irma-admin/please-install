@@ -2,7 +2,7 @@
 
 set -x 
 LIB_NAME="petsc"
-LIB_VERSION=3.7.6
+LIB_VERSION=3.8.3 #3.7.6
 GCC_VERSION=6.4.0
 MPI_LIB=openmpi
 MPI_VERSION=1.10.7 #2.1.1 #1.10.7
