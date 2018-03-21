@@ -49,7 +49,7 @@ if [[ ! -d $BUILD_DIR ]]; then
   --enable-mpi-check \
   --disable-build-doc \
   --enable-openmp \
-  --with-opencl-lib-dir=/data/software/install/AMD \
+  --with-opencl-lib-dir=/data/software/install/AMD-APP-SDK/3.0.130.136/AMDAPPSDK-3.0/ \
   --prefix=${INSTALL_DIR} || exit 1
 fi
 
