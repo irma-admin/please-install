@@ -1,0 +1,23 @@
+#%Module1.0#####################################################################
+### 
+### {{ LIB_NAME }} {{ LIB_VERSION }}
+### 
+proc ModulesHelp { } {
+    global version prefix
+
+    puts stderr "\tlibs//{{ LIB_TOOLBOXES_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_TOOLBOXES_NAME }} {{ LIB_VERSION }}"
+}
+
+module-whatis   "Loads {{ LIB_TOOLBOXES_NAME }} {{ LIB_VERSION }}"
+
+# for Tcl script use only
+set prefix      {{ INSTALL_TOOLBOXES_DIR }}
+
+prepend-path PATH $prefix/bin
+prepend-path LD_LIBRARY_PATH $prefix/lib
+prepend-path LIBRARY_PATH $prefix/lib
+setenv FEELPP_TOOLBOXES_DIR $prefix
+
+if [module-info mode load]  {
+   module load {{ MODULE_LIB_NAME }}
+}
