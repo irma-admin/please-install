@@ -31,7 +31,8 @@ cd $WORK_DIR
 mkdir -p "$INSTALL_DIR"
 rpm2cpio opencl_runtime_16.1.2_x64_rh_*/rpm/opencl-*-intel-cpu-*.x86_64.rpm | cpio -idmv
 cp ./opt/intel/opencl-*/lib64/* "$INSTALL_DIR"
-echo "$INSTALL_DIR/libintelocl.so" > /etc/OpenCL/vendors/intel.icd
+# (now handle by Saltstack:)
+# echo "$INSTALL_DIR/libintelocl.so" > /etc/OpenCL/vendors/intel.icd
 }
 
 install_lib
