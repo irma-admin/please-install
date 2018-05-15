@@ -3,8 +3,7 @@
 set -x
 
 # You may tune this section
-#SOFT_DIR="/data/software"
-SOFT_DIR="/Users/boileau/software"
+SOFT_DIR="/data/software"
 PREWORK_DIR=${SOFT_DIR}/sources
 PREINSTALL_DIR=${SOFT_DIR}/install
 PREMODULE_DIR=${SOFT_DIR}/modules
