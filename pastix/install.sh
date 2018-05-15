@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="pastix"
 LIB_VERSION=5.2.3
 GCC_VERSION=6.4.0
@@ -15,13 +16,13 @@ GCC_SHORT="gcc${GCC_VERSION//.}"
 MPI_FULL=${MPI_LIB}-${MPI_VERSION}
 MPI_SHORT="${MPI_LIB}${MPI_VERSION//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
-WORK_DIR=/data/software/sources/${SUB_DIR}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
 URL="https://gforge.inria.fr/frs/download.php/file/36212/${pastix}_${LIB_VERSION}.tar.bz2"
-INSTALL_DIR=/data/software/install/${SUB_DIR}
+INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/libs/${LIB_NAME}
+MODULE_DIR=${PREMODULE_DIR}/libs/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 
 install_lib()

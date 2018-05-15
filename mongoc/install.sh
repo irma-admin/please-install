@@ -1,14 +1,13 @@
 #!/bin/bash
-set -x
 
-source /etc/profile.d/modules.sh
+source ../common.sh
 
 ################################################################################
 # GENERIC: Base directory for source, install, build.
-SOURCE_BASE_DIR=/data/software/sources
-BUILD_BASE_DIR=/data/software/sources
-INSTALL_BASE_DIR=/data/software/install
-MODULE_BASE_DIR=/data/software/modules
+SOURCE_BASE_DIR=${PREWORK_DIR}
+BUILD_BASE_DIR=${PREWORK_DIR}
+INSTALL_BASE_DIR=${PREINSTALL_DIR}
+MODULE_BASE_DIR=${PREMODULE_DIR}
 ################################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 

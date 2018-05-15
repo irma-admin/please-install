@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="qt"
 LIB_VERSION_SHORT=5.6
 LIB_VERSION=${LIB_VERSION_SHORT}.2
@@ -8,13 +9,13 @@ LIB_VERSION=${LIB_VERSION_SHORT}.2
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 LIB_VERSION_VERYSHORT="${LIB_VERSION_SHORT//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION_SHORT}
-WORK_DIR=/data/software/sources/${SUB_DIR}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
 BUILD_SCRIPT=qt-opensource-linux-x64-${LIB_VERSION}.run
 QS_SCRIPT_PREFIX=qt-installer-noninteractive
 URL="http://download.qt.io/official_releases/qt/${LIB_VERSION_SHORT}/${LIB_VERSION}/${BUILD_SCRIPT}"
-INSTALL_DIR=/data/software/install/${SUB_DIR}
+INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/tools/${LIB_NAME}
+MODULE_DIR=${PREMODULE_DIR}/tools/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 
 install_lib()

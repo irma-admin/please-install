@@ -1,19 +1,20 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="wsmp"
 LIB_VERSION=17.07.01
 
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 LIB_VERSION_SHORT="${LIB_VERSION%.*}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}
-WORK_DIR=/data/software/sources/${SUB_DIR}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
 URL="http://researcher.watson.ibm.com/researcher/files/us-anshul/wsmp-Linux64-GNU-mt.tar.gz"
-INSTALL_DIR=/data/software/install/${SUB_DIR}
+INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/libs/${LIB_NAME}
+MODULE_DIR=${PREMODULE_DIR}/libs/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}
 
 install_lib()

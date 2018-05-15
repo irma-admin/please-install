@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="openmpi"
 LIB_MAJOR_VERSION=1.10
 LIB_VERSION=${LIB_MAJOR_VERSION}.7
@@ -9,14 +10,14 @@ GCC_VERSION=6.4.0
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 GCC_VERSION_SHORT="${GCC_VERSION//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}/gcc-${GCC_VERSION}
-WORK_DIR=/data/software/sources/${SUB_DIR}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
 URL="https://www.open-mpi.org/software/ompi/v${LIB_MAJOR_VERSION}/downloads/${LIB_NAME}-${LIB_VERSION}.tar.gz"
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
-INSTALL_DIR=/data/software/install/${SUB_DIR}
+INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/mpi/${LIB_NAME}
+MODULE_DIR=${PREMODULE_DIR}/mpi/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_gcc${GCC_VERSION_SHORT}
 
 module purge

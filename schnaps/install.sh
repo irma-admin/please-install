@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="schnaps.profile"
 GCC_VERSION=6.4.0
 MPI_LIB=openmpi
@@ -11,7 +12,7 @@ GCC_SHORT="gcc${GCC_VERSION//.}"
 MPI_FULL=${MPI_LIB}-${MPI_VERSION}
 MPI_SHORT="${MPI_LIB}${MPI_VERSION//.}"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/profiles
+MODULE_DIR=${PREMODULE_DIR}/profiles
 MODULE_PATH=${MODULE_DIR}/${LIB_NAME}
 
 install_module()

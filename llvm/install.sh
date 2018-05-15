@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="llvm"
 LIB_VERSION=5.0.0 #4.0.1
 GCC_VERSION=6.4.0
@@ -9,7 +10,7 @@ LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 GCC_FULL=gcc-$GCC_VERSION
 GCC_SHORT="gcc${GCC_VERSION//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}/${GCC_FULL}
-WORK_DIR=/data/software/sources/${SUB_DIR}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
 
 URL_LLVM="http://releases.llvm.org/${LIB_VERSION}/llvm-${LIB_VERSION}.src.tar.xz"
 URL_CFE="http://releases.llvm.org/${LIB_VERSION}/cfe-${LIB_VERSION}.src.tar.xz"
@@ -20,11 +21,11 @@ URL_COMPILER_RT="http://releases.llvm.org/${LIB_VERSION}/compiler-rt-${LIB_VERSI
 URL_OPENMP="http://releases.llvm.org/${LIB_VERSION}/openmp-${LIB_VERSION}.src.tar.xz"
 
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
-INSTALL_DIR=/data/software/install/${SUB_DIR}
+INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/compilers/${LIB_NAME}
+MODULE_DIR=${PREMODULE_DIR}/compilers/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}
-MODULE_CLANG_PATH=/data/software/modules/compilers/clang/${LIB_VERSION}_${GCC_SHORT}
+MODULE_CLANG_PATH=${PREMODULE_DIR}/compilers/clang/${LIB_VERSION}_${GCC_SHORT}
 
 
 install_lib()

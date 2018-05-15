@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="paraview"
 LIB_VERSION_URL=5.4.1
 LIB_VERSION=${LIB_VERSION_URL}-py3
@@ -17,14 +18,14 @@ GCC_SHORT="gcc${GCC_VERSION//.}"
 MPI_FULL=${MPI_LIB}-${MPI_VERSION}
 MPI_SHORT="${MPI_LIB}${MPI_VERSION//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
-WORK_DIR=/data/software/sources/${SUB_DIR}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
 URL="https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v${LIB_VERSION_SHORT}&type=binary&os=Sources&downloadFile=ParaView-v${LIB_VERSION_URL}.tar.gz"
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
-INSTALL_DIR=/data/software/install/${SUB_DIR}
+INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=/data/software/modules/tools/${LIB_NAME}
+MODULE_DIR=${PREMODULE_DIR}/tools/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 
 

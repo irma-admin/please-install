@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -x 
-
+set -x
 cd /data/software/sources
 mkdir ganglia
 cd ganglia

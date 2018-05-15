@@ -1,11 +1,13 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="AMD-APP-SDK"
 LIB_VERSION=3.0.130.136
 
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}
-SRC_DIR=/data/software/sources/${LIB_NAME}
+WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
+SRC_DIR=${WORK_DIR}/${LIB_NAME}
 TARBALL="${LIB_NAME}Installer-v${LIB_VERSION}-GA-linux64.tar.bz2"
 INSTALL_SCRIPT="${LIB_NAME}-v${LIB_VERSION}-GA-linux64.sh"
 TARGET_DIR=/data/software/install/${SUB_DIR}
