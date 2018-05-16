@@ -1,0 +1,19 @@
+#%Module1.0#####################################################################
+###
+### {{ LIB_NAME }} {{ LIB_VERSION }} module
+###
+proc ModulesHelp { } {
+    global version prefix
+
+    puts stderr "\tcompilers/{{ LIB_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+}
+
+module-whatis   "Loads {{ LIB_NAME }} {{ LIB_VERSION }} and its environment"
+
+# for Tcl script use only
+set version     {{ LIB_VERSION }}
+set prefix      {{ INSTALL_DIR }}
+
+prepend-path PATH $prefix/bin
+prepend-path LIBRARY_PATH $prefix/lib
+
