@@ -9,11 +9,11 @@ export LIB_VERSION="1.2-6.4.0.37"
 
 export LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}
-WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
+WORK_DIR=${BASE_WORK_DIR}/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${WORK_DIR}/opencl_runtime_16.1.2_x64_rh_6.4.0.37.tgz
 URL="http://registrationcenter-download.intel.com/akdlm/irc_nas/12556/opencl_runtime_16.1.2_x64_rh_6.4.0.37.tgz"
-export INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
+export INSTALL_DIR=${BASE_INSTALL_DIR}/${SUB_DIR}
 
 install_lib()
 {

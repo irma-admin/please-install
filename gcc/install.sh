@@ -8,14 +8,14 @@ export LIB_VERSION=6.4.0
 export LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
 #export LIB_VERSION_SHORT="${LIB_VERSION//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}
-WORK_DIR=${PREWORK_DIR}/${SUB_DIR}
+WORK_DIR=${BASE_WORK_DIR}/${SUB_DIR}
 SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
 URL="ftp://ftp.irisa.fr/pub/mirrors/gcc.gnu.org/gcc/releases/gcc-${LIB_VERSION}/gcc-${LIB_VERSION}.tar.gz"
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
-export INSTALL_DIR=${PREINSTALL_DIR}/${SUB_DIR}
+export INSTALL_DIR=${BASE_INSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=${PREMODULE_DIR}/compilers/${LIB_NAME}
+MODULE_DIR=${BASE_MODULE_DIR}/compilers/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}
 
 install_lib()

@@ -58,9 +58,9 @@ pip install envtpl
 Set your custom paths in `common.sh` for the 3 directories:
 
 ```bash
-PREWORK_DIR=${SOFT_DIR}/sources  # sources download and compilation top directory
-PREINSTALL_DIR=${SOFT_DIR}/install  # libraries installation top directory
-PREMODULE_DIR=${SOFT_DIR}/modules  # modulefiles top directory
+BASE_WORK_DIR=${SOFT_DIR}/sources  # sources download and compilation top directory
+BASE_INSTALL_DIR=${SOFT_DIR}/install  # libraries installation top directory
+BASE_MODULE_DIR=${SOFT_DIR}/modules  # modulefiles top directory
 ```
 
 These directories will be created if they don't exist.

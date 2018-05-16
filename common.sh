@@ -4,14 +4,14 @@ set -x
 
 # You may tune this section
 SOFT_DIR="/data/software"
-PREWORK_DIR=${SOFT_DIR}/sources
-PREINSTALL_DIR=${SOFT_DIR}/install
-PREMODULE_DIR=${SOFT_DIR}/modules
+BASE_WORK_DIR=${SOFT_DIR}/sources
+BASE_INSTALL_DIR=${SOFT_DIR}/install
+BASE_MODULE_DIR=${SOFT_DIR}/modules
 ###
 
-mkdir -p $PREWORK_DIR
-mkdir -p $PREINSTALL_DIR
-mkdir -p $PREMODULE_DIR
+mkdir -p $BASE_WORK_DIR
+mkdir -p $BASE_INSTALL_DIR
+mkdir -p $BASE_MODULE_DIR
 
 clean_dir()
 {

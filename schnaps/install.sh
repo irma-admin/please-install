@@ -12,7 +12,7 @@ GCC_SHORT="gcc${GCC_VERSION//.}"
 MPI_FULL=${MPI_LIB}-${MPI_VERSION}
 MPI_SHORT="${MPI_LIB}${MPI_VERSION//.}"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-MODULE_DIR=${PREMODULE_DIR}/profiles
+MODULE_DIR=${BASE_MODULE_DIR}/profiles
 MODULE_PATH=${MODULE_DIR}/${LIB_NAME}
 
 install_module()
