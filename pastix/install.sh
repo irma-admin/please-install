@@ -79,13 +79,7 @@ then
   install_module
 elif [[ $1 == "clean" ]]
 then
-  if [[ -d $SRC_DIR ]]
-  then
-    rm -rf $SRC_DIR
-  else
-    echo "$SRC_DIR does not exist"
-    exit 1
-  fi
+  clean_all
 else
   install_lib
   install_module

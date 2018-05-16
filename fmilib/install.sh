@@ -95,6 +95,9 @@ if [[ $1 == "module" ]]
 then
     echo ""
 #    install_module
+elif [[ $1 == "clean" ]]
+then
+  clean_all
 else
     prepare_lib
     build_lib

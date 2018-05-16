@@ -76,6 +76,9 @@ install_module()
 if [[ $1 == "module" ]]
 then
     install_module
+elif [[ $1 == "clean" ]]
+then
+  clean_all
 else
     install_lib
     install_module
