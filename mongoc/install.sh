@@ -2,13 +2,6 @@
 
 source ../common.sh
 
-################################################################################
-# GENERIC: Base directory for source, install, build.
-SOURCE_BASE_DIR=${PREWORK_DIR}
-BUILD_BASE_DIR=${PREWORK_DIR}
-INSTALL_BASE_DIR=${PREINSTALL_DIR}
-MODULE_BASE_DIR=${PREMODULE_DIR}
-################################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 LIB_NAME="mongoc"
@@ -29,10 +22,10 @@ GCC_VERSION_PATCH=`echo "${GCC_VERSION}" | sed 's/[0-9][.][0-9][.]\([0-9]\)/\1/g
 DEPEND_GCC=gcc-${GCC_VERSION_MAJOR}${GCC_VERSION_MINOR}${GCC_VERSION_PATCH}
 DEPEND_MODULE_GCC=gcc${GCC_VERSION_MAJOR}${GCC_VERSION_MINOR}${GCC_VERSION_PATCH}
 
-SOURCE_DIR=${SOURCE_BASE_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_GCC}
-BUILD_DIR=${BUILD_BASE_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_GCC}/build
-INSTALL_DIR=${INSTALL_BASE_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_GCC}
-MODULE_DIR=${MODULE_BASE_DIR}/libs/${LIB_NAME}
+SOURCE_DIR=${PREWORK_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_GCC}
+BUILD_DIR=${PREWORK_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_GCC}/build
+INSTALL_DIR=${PREINSTALL_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_GCC}
+MODULE_DIR=${PREMODULE_DIR}/libs/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${DEPEND_MODULE_GCC}
 
 prepare_lib()

@@ -2,13 +2,6 @@
 
 source ../common.sh
 
-################################################################################
-# GENERIC: Base directory for source, install, build.
-SOURCE_BASE_DIR=${PREWORK_DIR}
-BUILD_BASE_DIR=${PREWORK_DIR}
-INSTALL_BASE_DIR=${PREINSTALL_DIR}
-MODULE_BASE_DIR=${PREMODULE_DIR}
-################################################################################
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 LIB_NAME="sympy"
@@ -25,10 +18,10 @@ PYTHON_VERSION_PATCH=`echo "${PYTHON_VERSION}" | sed 's/[0-9][.][0-9][.]\([0-9]\
 DEPEND_PYTHON=python-${PYTHON_VERSION_MAJOR}
 DEPEND_MODULE_PYTHON=python${PYTHON_VERSION_MAJOR}
 
-SOURCE_DIR=${SOURCE_BASE_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_PYTHON}
-BUILD_DIR=${BUILD_BASE_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_PYTHON}/build
-INSTALL_DIR=${INSTALL_BASE_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_PYTHON}
-MODULE_DIR=${MODULE_BASE_DIR}/libs/${LIB_NAME}
+SOURCE_DIR=${PREWORK_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_PYTHON}
+BUILD_DIR=${PREWORK_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_PYTHON}/build
+INSTALL_DIR=${PREINSTALL_DIR}/${LIB_NAME}/${LIB_VERSION}/${DEPEND_PYTHON}
+MODULE_DIR=${PREMODULE_DIR}/libs/${LIB_NAME}
 MODULE_PATH=${MODULE_DIR}/${LIB_VERSION}_${DEPEND_MODULE_PYTHON}
 
 install_lib()
