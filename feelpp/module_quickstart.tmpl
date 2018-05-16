@@ -1,0 +1,24 @@
+#%Module1.0#####################################################################
+### 
+### {{ LIB_QUICKSTART_NAME }} {{ LIB_VERSION }}
+### 
+proc ModulesHelp { } {
+    global version prefix
+
+    puts stderr "\tlibs//{{ LIB_QUICKSTART_NAME }}/{{ LIB_VERSION }} - loads {{ LIB_QUICKSTART_NAME }} {{ LIB_VERSION }}"
+}
+
+module-whatis   "Loads {{ LIB_QUICKSTART_NAME }} {{ LIB_VERSION }}"
+
+# for Tcl script use only
+set prefix      {{ INSTALL_QUICKSTART_DIR }}
+
+prepend-path PATH $prefix/bin
+prepend-path LD_LIBRARY_PATH $prefix/lib
+prepend-path LIBRARY_PATH $prefix/lib
+setenv FEELPP_QUICKSTART_DIR $prefix
+setenv FEELPP_QUICKSTART_TESTCASES_DIR $prefix/share/feelpp/testcases
+
+if [module-info mode load]  {
+   module load {{ MODULE_LIB_NAME }}
+}

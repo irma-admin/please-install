@@ -1,6 +1,6 @@
 #%Module1.0#####################################################################
 ### 
-### {{ LIB_NAME }} {{ LIB_VERSION }}
+### {{ LIB_TOOLBOXES_NAME }} {{ LIB_VERSION }}
 ### 
 proc ModulesHelp { } {
     global version prefix
@@ -17,6 +17,7 @@ prepend-path PATH $prefix/bin
 prepend-path LD_LIBRARY_PATH $prefix/lib
 prepend-path LIBRARY_PATH $prefix/lib
 setenv FEELPP_TOOLBOXES_DIR $prefix
+setenv FEELPP_TOOLBOXES_TESTCASES_DIR $prefix/share/feelpp/testcases
 
 if [module-info mode load]  {
    module load {{ MODULE_LIB_NAME }}

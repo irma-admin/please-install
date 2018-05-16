@@ -12,21 +12,28 @@ MPI_FULL=${MPI_LIB}-${MPI_VERSION}
 MPI_SHORT="${MPI_LIB}${MPI_VERSION//.}"
 
 LIB_NAME="feelpp-lib"
+LIB_QUICKSTART_NAME="feelpp-quickstart"
 LIB_TOOLBOXES_NAME="feelpp-toolboxes"
 LIB_FULLNAME=${LIB_NAME}-${LIB_VERSION}
+LIB_QUICKSTART_FULLNAME=${LIB_QUICKSTART_NAME}-${LIB_VERSION}
 LIB_TOOLBOXES_FULLNAME=${LIB_TOOLBOXES_NAME}-${LIB_VERSION}
 SUB_LIB_DIR=${LIB_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
+SUB_QUICKSTART_DIR=${LIB_QUICKSTART_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
 SUB_TOOLBOXES_DIR=${LIB_TOOLBOXES_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
 SRC_DIR=${PREWORK_DIR}/${SUB_LIB_DIR}
 GIT_URL="https://github.com/feelpp/feelpp.git"
 BUILD_LIB_DIR=${SRC_DIR}/build-lib
+BUILD_QUICKSTART_DIR=${SRC_DIR}/build-quickstart
 BUILD_TOOLBOXES_DIR=${SRC_DIR}/build-toolboxes
 INSTALL_LIB_DIR=${PREINSTALL_DIR}/${SUB_LIB_DIR}
+INSTALL_QUICKSTART_DIR=${PREINSTALL_DIR}/${SUB_QUICKSTART_DIR}
 INSTALL_TOOLBOXES_DIR=${PREINSTALL_DIR}/${SUB_TOOLBOXES_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MODULE_LIB_DIR=${PREMODULE_DIR}/libs/${LIB_NAME}
 MODULE_LIB_PATH=${MODULE_LIB_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 MODULE_LIB_NAME=${LIB_NAME}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
+MODULE_QUICKSTART_DIR=${PREMODULE_DIR}/libs/${LIB_QUICKSTART_NAME}
+MODULE_QUICKSTART_PATH=${MODULE_QUICKSTART_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 MODULE_TOOLBOXES_DIR=${PREMODULE_DIR}/libs/${LIB_TOOLBOXES_NAME}
 MODULE_TOOLBOXES_PATH=${MODULE_TOOLBOXES_DIR}/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
 
@@ -69,6 +76,32 @@ cd $BUILD_LIB_DIR/applications/mesh && make install -j16 || exit 1
 cd $BUILD_LIB_DIR/applications/databases && make install -j16 || exit 1
 }
 
+install_lib_quickstart()
+{
+    module purge
+    module load feelpp-lib/${LIB_VERSION}_${GCC_SHORT}_${MPI_SHORT}
+    module list
+
+    if [[ ! -d $SRC_DIR/feelpp ]]; then
+	echo "no src dir : exit"
+	exit 1
+    fi
+
+    echo "start configure of quickstart with FEELPP_DIR=${FEELPP_DIR}" 
+    
+    rm -rf $BUILD_QUICKSTART_DIR
+    mkdir $BUILD_QUICKSTART_DIR
+    cd $BUILD_QUICKSTART_DIR || exit 1
+
+    cmake -DCMAKE_BUILD_TYPE=Release \
+	  -DCMAKE_CXX_COMPILER=clang++ \
+	  -DCMAKE_C_COMPILER=clang \
+	  -DCMAKE_INSTALL_PREFIX=${INSTALL_QUICKSTART_DIR} \
+	  -DFEELPP_DIR=${FEELPP_DIR} \
+	  $SRC_DIR/feelpp/quickstart || exit 1
+    make install -j16
+}
+
 install_lib_tooboxes()
 {
     module purge
@@ -107,6 +140,17 @@ install_module_lib()
     envtpl  --keep-template -o $MODULE_LIB_PATH module_lib.tmpl
 }
 
+install_module_quickstart()
+{
+    cd $SCRIPT_DIR
+    mkdir -p ${MODULE_QUICKSTART_DIR}
+    export LIB_QUICKSTART_NAME
+    export LIB_VERSION
+    export INSTALL_QUICKSTART_DIR
+    export MODULE_LIB_NAME
+    envtpl  --keep-template -o $MODULE_QUICKSTART_PATH module_quickstart.tmpl
+}
+
 install_module_tooboxes()
 {
     cd $SCRIPT_DIR
@@ -130,6 +174,12 @@ if [[ $1 == "feelpp-lib" ]]; then
     exit 1
 fi
 
+if [[ $1 == "feelpp-quickstart" ]]; then
+    install_lib_quickstart
+    install_module_quickstart
+    exit 1
+fi
+
 if [[ $1 == "feelpp-toolboxes" ]]; then
     install_lib_tooboxes
     install_module_tooboxes
@@ -138,5 +188,7 @@ fi
 
 install_lib
 install_module_lib
+install_lib_quickstart
+install_module_quickstart
 install_lib_tooboxes
 install_module_tooboxes
