@@ -1,8 +1,9 @@
 #!/bin/bash
 
-set -x 
+source ../common.sh
+
 LIB_NAME="fftw"
-LIB_VERSION=3.3.6
+LIB_VERSION=3.3.7
 GCC_VERSION=6.4.0
 MPI_LIB=openmpi
 MPI_VERSION=1.10.7
@@ -14,10 +15,9 @@ MPI_FULL=${MPI_LIB}-${MPI_VERSION}
 MPI_SHORT="${MPI_LIB}${MPI_VERSION//.}"
 SUB_DIR=${LIB_NAME}/${LIB_VERSION}/${GCC_FULL}/${MPI_FULL}
 WORK_DIR=${BASE_WORK_DIR}/${SUB_DIR}
-SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}-pl2
+SRC_DIR=${WORK_DIR}/${LIB_FULLNAME}
 ARCHIVE=${SRC_DIR}.tar.gz
-URL="http://www.fftw.org/${LIB_FULLNAME}-pl2.tar.gz"
-#URL="http://75.98.172.202/${LIB_FULLNAME}-pl2.tar.gz"
+URL="http://www.fftw.org/${LIB_FULLNAME}.tar.gz"
 BUILD_DIR=${WORK_DIR}/${LIB_FULLNAME}-build
 INSTALL_DIR=${BASE_INSTALL_DIR}/${SUB_DIR}
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
